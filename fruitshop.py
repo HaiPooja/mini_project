@@ -1,50 +1,78 @@
 #create a small fruit shop software
 
-fruit=[]
+fruit={}
+cart=[]
 while True:
-	print("1 add fruit ")
-	print("2 delete fruit by name ")
-	print("3 search  fruit by name and rate ")
-	print("4 change  fruit name ")
-	print("5 display ")
-	print("6 exit ")        
-	choice =int(input("enter your choice"))
-	if choice == 1:
-	#add fruit
-		name=input("enter the fruit name")
-		rate=int(input("enter the rate"))
-		if name!=None and rate !=None:
-			fruit.append([name,rate])
+	print("1 add fruit details ")
+	print("2 delete fruit  ")
+	print("3 search  fruit details ")
+	print("4 change  fruit name and rate")
+	print("5 display fruit details")
+	print("6 add to cart")
+	print("7 display cart")
+	print("8 exit ")        
+	choice =int(input("Enter your choice"))
+	if choice ==1:
+	##add fruit
+		fruit_id = int(input("\tEnter Fruit_id "))
+		if fruit_id not in fruit.keys():
+			fruit_name = input("\tEnter name ")
+			rate= int(input("\tEnter rate "))
+			imported_from = input("\tEnter the imported from ")
+			import_date = input("\tEnter import_date ")
+			buying_price = int(input("\tEnter buying_price "))
+			temp ={
+				"fruit_name":fruit_name,
+				"rate":rate,
+				"imported_from":imported_from,
+				"import_date":import_date,
+				"buying_price":buying_price,
+			}
+			fruit[fruit_id] = temp
+		else:
+			print("\tfruit id  already Taken")
+
 	elif choice == 2:
 		#delete fruits by name
-		name=input("enter the fruit name you want to delete ")
-		for i in fruit:
-			if i[0]==name:
-				fruit.remove(i)
+		fid = input("\tEnter fruit id") 
+		if fid not in fruit.keys():
+				print("\tWrong fruit id")
+		else:
+				del fruit[fid]
 	elif choice ==3:
-		#search fruit by name and rate
+		#search fruit details
 		name=input("enter the fruit name you want to search")
 		rate=input("enter the fruit rate you want to search")
-		for i in fruit:
-			if i[0]== name and i[1]==rate:
-				print("found")
-			else:
-				print("not found")
+		found = False
+		for i in fruit.values():
+			if i["fruit_name"] == name and i["rate"] == rate:
+				print("found!!")
+				found = True
+				break
+		if(found == False):
+				print("Not found")
 	elif choice ==4:
-                #change fruit  name and rate
-                name=input("enter the fruit name you want to change")
-                rate=int(input("enter the fruit rate you want to change"))
-                new_name=input("enter the new name ")
-                new_rate=int(input("enter new rate"))
-                for i in fruit:
-                	if i[0]==name and i[1]==rate:
-                		fruit.remove(i)
-                		fruit.append([new_name,new_rate])
-                		print(fruit)
+                #change fruit  details
+                print(fruit)
+                c = int(input("Enter fruit id :"))
+                if c not in fruit.keys():
+                	print('Please provide right fruit id ')
+                else:
+                	print("modify fruit data")
+                	fruit[c]['fruit_name'] = input('Enter new fruit name :')
+                	fruit[c]['rate'] =input('Enter new rate : ')
 	elif choice==5:
 	#display
 		print(fruit)
 	elif choice==6:
+	#add to cart
+		for i in fruit.keys():
+			print(f"press {i} for add to cart")
+		cart.append(fruit[int(input('enter fruit id to add on cart : '))])
+	elif choice==7:
+	#display cart
+		print(cart)
+	elif choice==8:
 		break;
 	else:
 		print("invalid")
