@@ -2,7 +2,8 @@
 
 fruit={}
 cart=[]
-while True:
+
+def main_menu():
 	print("1 add fruit details ")
 	print("2 delete fruit  ")
 	print("3 search  fruit details ")
@@ -10,47 +11,59 @@ while True:
 	print("5 display fruit details")
 	print("6 add to cart")
 	print("7 display cart")
-	print("8 exit ")        
+	print("8 exit ")
+    
+def add_fruit():
+	fruit_id = int(input("\tEnter Fruit_id "))
+	if fruit_id not in fruit.keys():
+		fruit_name = input("\tEnter name ")
+		rate= int(input("\tEnter rate "))
+		imported_from = input("\tEnter the imported from ")
+		import_date = input("\tEnter import_date ")
+		buying_price = int(input("\tEnter buying_price "))
+		temp ={
+			"fruit_name":fruit_name,
+			"rate":rate,
+			"imported_from":imported_from,
+			"import_date":import_date,
+			"buying_price":buying_price,
+                        }
+		fruit[fruit_id] = temp
+	else:
+		print("\tfruit id  already Taken")
+def delete_fruit():
+	fid = input("\tEnter fruit id") 
+	if fid not in fruit.keys():
+		print("\tWrong fruit id")
+	else:
+		del fruit[fid]
+def search_fruit():
+	name=input("enter the fruit name you want to search")
+	rate=input("enter the fruit rate you want to search")
+	found = False
+	for i in fruit.values():
+		if i["fruit_name"] == name and i["rate"] == rate:
+			print("found!!")
+			found = True
+			break;
+		if(found == False):
+			print("Not found")
+
+
+
+while True:
+	main_menu()   
 	choice =int(input("Enter your choice"))
 	if choice ==1:
 	##add fruit
-		fruit_id = int(input("\tEnter Fruit_id "))
-		if fruit_id not in fruit.keys():
-			fruit_name = input("\tEnter name ")
-			rate= int(input("\tEnter rate "))
-			imported_from = input("\tEnter the imported from ")
-			import_date = input("\tEnter import_date ")
-			buying_price = int(input("\tEnter buying_price "))
-			temp ={
-				"fruit_name":fruit_name,
-				"rate":rate,
-				"imported_from":imported_from,
-				"import_date":import_date,
-				"buying_price":buying_price,
-			}
-			fruit[fruit_id] = temp
-		else:
-			print("\tfruit id  already Taken")
+		add_fruit()
 
 	elif choice == 2:
 		#delete fruits by name
-		fid = input("\tEnter fruit id") 
-		if fid not in fruit.keys():
-				print("\tWrong fruit id")
-		else:
-				del fruit[fid]
+		delete_fruit()
 	elif choice ==3:
 		#search fruit details
-		name=input("enter the fruit name you want to search")
-		rate=input("enter the fruit rate you want to search")
-		found = False
-		for i in fruit.values():
-			if i["fruit_name"] == name and i["rate"] == rate:
-				print("found!!")
-				found = True
-				break
-		if(found == False):
-				print("Not found")
+		search_fruit()
 	elif choice ==4:
                 #change fruit  details
                 print(fruit)
